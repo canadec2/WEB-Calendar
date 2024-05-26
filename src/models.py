@@ -15,7 +15,16 @@ class User:
 class Event:
 
     def __init__(
-        self, user_id, event_name, description, year, month, day, time, periodicity
+        self,
+        user_id,
+        event_name,
+        description,
+        year,
+        month,
+        day,
+        start_time,
+        end_time,
+        periodicity,
     ):
         self.user_id = user_id
         self.event_name = event_name
@@ -23,7 +32,8 @@ class Event:
         self.year = year
         self.month = month
         self.day = day
-        self.time = time
+        self.start_time = start_time
+        self.end_time = end_time
         self.periodicity = periodicity
 
     def get_event_info(self):
@@ -35,6 +45,7 @@ class Event:
             "month": self.month,
             "week": self.week,
             "day": self.day,
-            "time": self.time,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
             "periodicity": self.periodicity,
         }
