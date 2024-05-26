@@ -129,9 +129,12 @@ paths:
                 year:
                   type: string
                   example: 2024
-                time:
+                start_time:
                   type: string
                   example: "14:00"
+                end_time:
+                  type: string
+                  example: "15:00"
                 periodicity:
                   type: string
                   example: "Каждый месяц"
@@ -164,9 +167,12 @@ paths:
                       year:
                         type: string
                         example: 2024
-                      time:
+                      start_time:
                         type: string
                         example: "14:00"
+                      end_time:
+                        type: string
+                        example: "15:00"
                       periodicity:
                         type: string
                         example: "Каждый месяц"
@@ -205,9 +211,12 @@ paths:
                     year:
                       type: string
                       example: 2024
-                    time:
+                    start_time:
                       type: string
                       example: "14:00"
+                    end_time:
+                      type: string
+                      example: "15:00"
                     periodicity:
                       type: string
                       example: "Каждый месяц"
@@ -265,11 +274,17 @@ paths:
           required: true
           description: Идентификатор события
         - in: query
-          name: new_time
+          name: new_start_time
           schema:
             type: string
           required: true
-          description: Новое время события в формате "ЧЧ:MM"
+          description: Новое время начала события в формате "ЧЧ:MM"
+        - in: query
+          name: new_end_time
+          schema:
+            type: string
+          required: true
+          description: Новое время конца события в формате "ЧЧ:MM"
       responses:
         '200':
           description: Успешное обновление времени события

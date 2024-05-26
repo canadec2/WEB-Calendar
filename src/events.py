@@ -25,7 +25,8 @@ def create_event(body):
     year = event_data["year"]
     month = event_data["month"]
     day = event_data["day"]
-    time = event_data["time"]
+    start_time = event_data["start_time"]
+    end_time = event_data["end_time"]
     periodicity = event_data["periodicity"]
 
     new_event = Event(
@@ -35,7 +36,8 @@ def create_event(body):
         year,
         month,
         day,
-        time,
+        start_time,
+        end_time,
         periodicity,
     )
 
@@ -48,7 +50,8 @@ def create_event(body):
             new_event.year,
             new_event.month,
             new_event.day,
-            new_event.time,
+            new_event.start_time,
+            new_event.end_time,
             new_event.periodicity,
         ),
     )
@@ -67,7 +70,8 @@ def create_event(body):
                     "year": year,
                     "month": month,
                     "day": day,
-                    "time": time,
+                    "start_time": start_time,
+                    "end_time": end_time,
                     "periodicity": periodicity,
                 },
             }
@@ -101,8 +105,9 @@ def get_user_events_by_id(user_id):
                 "year": event[2],
                 "month": event[3],
                 "day": event[4],
-                "time": event[5],
-                "periodicity": event[6],
+                "start_time": event[5],
+                "end_time": event[6],
+                "periodicity": event[7],
             }
             for event in events
         ]
@@ -174,7 +179,7 @@ def update_event_date(event_id, new_date):
         )
 
 
-def update_event_time(event_id, new_time):
+def update_event_time(event_id, new_start_time, new_end_time):
     try:
         conn = sqlite3.connect(DATA_EVENTS_PATH)
         cur = conn.cursor()
@@ -190,7 +195,7 @@ def update_event_time(event_id, new_time):
 
         cur.execute(
             sqlite_query.update_time_event,
-            (new_time, event_id),
+            (new_start_time, new_end_time, event_id),
         )
         conn.commit()
         cur.close()
