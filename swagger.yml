@@ -100,3 +100,205 @@ paths:
                   message:
                     type: string
                     example: Неверный адрес электронной почты или пароль.
+  /events:
+    post:
+      summary: Создание нового события
+      operationId: src.events.create_event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                event_name:
+                  type: string
+                  example: Встреча
+                event_description:
+                  type: string
+                  example: Обсуждение проекта
+                day:
+                  type: string
+                  example: 26
+                month:
+                  type: string
+                  example: 5
+                year:
+                  type: string
+                  example: 2024
+                time:
+                  type: string
+                  example: "14:00"
+                periodicity:
+                  type: string
+                  example: "Каждый месяц"
+      responses:
+        201:
+          description: Событие успешно создано
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Событие успешно создано
+                  event:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Встреча
+                      description:
+                        type: string
+                        example: Обсуждение проекта
+                      day:
+                        type: string
+                        example: 26
+                      month:
+                        type: string
+                        example: 5
+                      year:
+                        type: string
+                        example: 2024
+                      time:
+                        type: string
+                        example: "14:00"
+                      periodicity:
+                        type: string
+                        example: "Каждый месяц"
+    get:
+      summary: Получение событий пользователя по ID
+      operationId: src.events.get_user_events_by_id
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Список событий пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_name:
+                      type: string
+                      example: Встреча
+                    description:
+                      type: string
+                      example: Обсуждение проекта
+                    day:
+                      type: string
+                      example: 26
+                    month:
+                      type: string
+                      example: 5
+                    year:
+                      type: string
+                      example: 2024
+                    time:
+                      type: string
+                      example: "14:00"
+                    periodicity:
+                      type: string
+                      example: "Каждый месяц"
+        404:
+          description: Не найдены события для данного пользователя
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Не найдены события для данного пользователя.
+  /events/{event_id}:
+    delete:
+      summary: Удаление события по ID
+      operationId: src.events.delete_event_by_id
+      parameters:
+        - in: path
+          name: event_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Событие успешно удалено
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Событие успешно удалено.
+        500:
+          description: Ошибка базы данных
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Ошибка базы данных: {e}"
+  /events/{event_id}/update_time:
+    put:
+      summary: Изменить время события
+      operationId: src.events.update_event_time
+      parameters:
+        - in: path
+          name: event_id
+          schema:
+            type: integer
+          required: true
+          description: Идентификатор события
+        - in: query
+          name: new_time
+          schema:
+            type: string
+          required: true
+          description: Новое время события в формате "ЧЧ:MM"
+      responses:
+        '200':
+          description: Успешное обновление времени события
+        '404':
+          description: Событие с указанным event_id не найдено
+        '500':
+          description: Ошибка сервера
+
+  /events/{event_id}/update_date:
+    put:
+      summary: Изменить дату события
+      operationId: src.events.update_event_date
+      parameters:
+        - in: path
+          name: event_id
+          schema:
+            type: integer
+          required: true
+          description: Идентификатор события
+        - in: query
+          name: new_date
+          schema:
+            type: string
+          required: true
+          description: Новая дата события в формате "ДД-ММ-ГГГГ"
+      responses:
+        '200':
+          description: Успешное обновление даты события
+        '404':
+          description: Событие с указанным event_id не найдено
+        '500':
+          description: Ошибка сервера
