@@ -1,36 +1,102 @@
 openapi: 3.0.0
 info:
-  title: WEB-Calendar API
+  title: Web Calendar API
+  description: API для управления событиями и пользователями в веб-календаре.
   version: 1.0.0
-  description: API for WEB-Calendar
-
 servers:
- - url: /api
-
-components:
-  schemas:
-    Event:
-      type: object
-      required:
-        - description_of_event
-      properties:
-        description_of_event:
-          type: string
-  parameters:
-    description_of_event:
-      name: description_of_event
-      in: path
-      required: true
-      schema:
-        type: string
-
+  - url: /api
 paths:
-  /events:
-    get:
-      summary: Get lisf of all events
-      tags:
-        - Events
-      operationId: events.get_all_events
+  /register:
+    post:
+      summary: Регистрация нового пользователя
+      operationId: src.registration.Registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: user123
+                email:
+                  type: string
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password123
       responses:
-        '200':
-          description: Successfully read all events
+        201:
+          description: Пользователь успешно зарегистрирован
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: user123
+                  email:
+                    type: string
+                    example: user@example.com
+        400:
+          description: Аккаунт с такой электронной почтой уже существует
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Аккаунт с такой электронной почтой уже существует.
+  /login:
+    post:
+      summary: Вход пользователя
+      operationId: src.registration.Entrance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        200:
+          description: Успешный вход
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: user123
+                  email:
+                    type: string
+                    example: user@example.com
+                  password:
+                    type: string
+                    example: hashed_password123
+        400:
+          description: Неверный адрес электронной почты или пароль
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Неверный адрес электронной почты или пароль.
