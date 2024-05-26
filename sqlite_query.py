@@ -23,17 +23,18 @@ create_table_events = """CREATE TABLE IF NOT EXISTS events(
                 day TEXT,
                 month TEXT,
                 year TEXT,
-                time TEXT,
+                start_time TEXT,
+                end_time TEXT,
                 periodicity TEXT,
                 FOREIGN KEY (user_id) REFERENCES users(id)
 
     )"""
 
-insert_events = """INSERT INTO events (user_id, event_name, description, day, month, year, time, periodicity) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
+insert_events = """INSERT INTO events (user_id, event_name, description, day, month, year, start_time, end_time, periodicity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 
 select_id_event = """SELECT * FROM events WHERE event_id = ?;"""
 
-get_events = """SELECT event_name, description, day, month, year, time, periodicity FROM events WHERE user_id = ?;"""
+get_events = """SELECT event_name, description, day, month, year, start_time, end_time, periodicity FROM events WHERE user_id = ?;"""
 
 delete_events = """DELETE FROM events WHERE event_id = ?;"""
 
@@ -41,4 +42,6 @@ update_date_event = (
     """UPDATE events SET day = ?, month = ?, year = ? WHERE event_id = ?;"""
 )
 
-update_time_event = """UPDATE events SET time = ? WHERE event_id = ?;"""
+update_time_event = (
+    """UPDATE events SET start_time = ?, start_time = ? WHERE event_id = ?;"""
+)
