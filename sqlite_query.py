@@ -43,5 +43,5 @@ update_date_event = (
 )
 
 update_time_event = (
-    """UPDATE events SET start_time = ?, start_time = ? WHERE event_id = ?;"""
+    """UPDATE events SET start_time = ?, end_time = ? WHERE event_id = ?;"""
 )
