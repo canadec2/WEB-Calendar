@@ -15,7 +15,9 @@ def Hashing(data):
     return hashlib.sha256(data.encode()).hexdigest()
 
 
-def Registration(body):
+def registration(body):
+    conn = sqlite3.connect(DATA_USERS_PATH)
+    cur = conn.cursor()
     data = request.get_json()
 
     hashed_email = Hashing(data["email"])
@@ -27,39 +29,39 @@ def Registration(body):
         hashed_password,
     )
 
-    with sqlite3.connect(DATA_USERS_PATH) as conn:
-        cur = conn.cursor()
+    
 
-        cur.execute(sqlite_query.check_user_email_exists, (user.email,))
-        is_exists = cur.fetchone()[0]
+    cur.execute(sqlite_query.check_user_email_exists, (user.email,))
+    is_exists = cur.fetchone()[0]
 
-        if is_exists:
-            return (
-                jsonify(
-                    {"message": "Аккаунт с такой электронной почтой уже существует."}
-                ),
-                HTTPStatus.BAD_REQUEST,
-            )
-
-        cur.execute(
-            sqlite_query.insert_user,
-            (
-                user.username,
-                user.email,
-                user._User__password,
+    if is_exists:
+        return (
+            jsonify(
+                {"message": "Аккаунт с такой электронной почтой уже существует."}
             ),
+            HTTPStatus.BAD_REQUEST,
         )
 
-        user_id = cur.lastrowid
-        session["user_id"] = user_id
+    cur.execute(
+        sqlite_query.insert_user,
+        (
+            user.username,
+            user.email,
+            user._User__password,
+        ),
+    )
 
-        body = {
-            "id": user_id,
-            "username": user.username,
-            "email": user.email,
-        }
+    user_id = cur.lastrowid
+    session["user_id"] = user_id
 
-        conn.commit()
+    body = {
+        "id": user_id,
+        "username": user.username,
+        "email": user.email,
+    }
+
+    conn.commit()
+    cur.close()
 
     return jsonify(body), HTTPStatus.CREATED
 
@@ -106,6 +108,6 @@ def Entrance(body):
                 )
             return jsonify({"message": "Неверный пароль."}), HTTPStatus.BAD_REQUEST
     return (
-        jsonify({"message": "Неверный адрес электронной почты или логин."}),
+        jsonify({"message": "Неверный адрес электронной почты."}),
         HTTPStatus.BAD_REQUEST,
     )

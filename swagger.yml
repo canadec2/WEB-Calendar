@@ -9,7 +9,7 @@ paths:
   /register:
     post:
       summary: Регистрация нового пользователя
-      operationId: src.registration.Registration
+      operationId: src.registration.registration
       requestBody:
         required: true
         content:

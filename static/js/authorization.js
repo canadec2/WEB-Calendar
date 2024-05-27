@@ -31,36 +31,57 @@ document.addEventListener('DOMContentLoaded', () => {
         switchForm(false);
     });
 
-    document.getElementById('login-form').addEventListener('submit', (event) => {
-        event.preventDefault();
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Предотвратить обычную отправку формы
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-
-        if (email === '' || password === '') {
-            errorMessage.textContent = 'Both fields are required.';
-            errorMessage.style.display = 'block';
-        } else {
-            errorMessage.textContent = '';
-            alert('Login successful!');
-            // window.location.href = 'calendar.html';
-        }
+    
+        fetch('api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/calendar.html';
+            } else {
+                document.getElementById('error-message').textContent = data.message;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
-
-    document.getElementById('register-form').addEventListener('submit', (event) => {
+    
+    document.getElementById('register-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const name = document.getElementById('reg-name').value;
         const email = document.getElementById('reg-email').value;
         const password = document.getElementById('reg-password').value;
-
-        if (name === '' || email === '' || password === '') {
-            errorMessage.textContent = 'All fields are required.';
-            errorMessage.style.display = 'block';
-        } else {
-            errorMessage.textContent = '';
-            alert('Registration successful!');
-            // window.location.href = 'calendar.html';
-        }
+    
+        fetch('api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: name, email: email, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/calendar.html';
+            } else {
+                document.getElementById('error-message').textContent = data.message;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
+    
 
     // Initially show the login form
     switchForm(true);
