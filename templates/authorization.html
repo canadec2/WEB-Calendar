@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Web Calendar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/authorization.css') }}">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="auth-container">
+        <h1 class="title">АРШАНДАРЬ</h1>
+        <div class="auth-header">
+            <div class="auth-tabs">
+                <span id="login-tab" class="active">Вход</span>
+                <span id="register-tab">Регистрация</span>
+            </div>
+        </div>
+        <div class="auth-form-container">
+            <form id="login-form" class="form active">
+                <div class="input-group">
+                    <input type="email" id="login-email" name="email" placeholder="Почта" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-password" name="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit">ВОЙТИ</button>
+            </form>
+            <form id="register-form" class="form">
+                <div class="input-group">
+                    <input type="text" id="reg-name" name="name" placeholder="Имя" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="reg-email" name="email" placeholder="Почта" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="reg-password" name="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit">РЕГИСТРАЦИЯ</button>
+            </form>
+        </div>
+        <p id="error-message"></p>
+    </div>
+    <script src="{{ url_for('static', filename='js/authorization.js') }}"></script>
+</body>
+</html>
