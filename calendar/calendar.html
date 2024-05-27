@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Веб-календарь</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+    <div id="sidebar">
+        <h2>Календарь</h2>
+        <div id="datepicker"></div>
+        <div id="event-list">
+            <h4>События на сегодня</h4>
+            <ul id="today-events"></ul>
+        </div>
+    </div>
+    <div id="calendar-container">
+        <button class="btn create-event-btn" data-toggle="modal" data-target="#createEventModal">
+            <i class="fa fa-plus"></i> Создать событие
+        </button>
+        <div id="calendar"></div>
+    </div>
+
+    <!-- Create/Edit Event Modal -->
+    <div id="createEventModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Создать событие</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="createEventForm">
+                        <div class="form-group">
+                            <label for="event-start">Начало события</label>
+                            <input type="text" class="form-control datetimepicker" id="event-start" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-end">Конец события</label>
+                            <input type="text" class="form-control datetimepicker" id="event-end" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-title">Название события</label>
+                            <input type="text" class="form-control" id="event-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-description">Описание события</label>
+                            <textarea class="form-control" id="event-description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-repeat">Повторение события</label>
+                            <select class="form-control" id="event-repeat">
+                                <option value="none">Не повторять</option>
+                                <option value="daily">Каждый день</option>
+                                <option value="weekly">Каждую неделю</option>
+                                <option value="monthly">Каждый месяц</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-color">Цвет события</label>
+                            <input type="color" class="form-control" id="event-color">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Создать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div id="editEventModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Редактировать событие</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="editEventForm">
+                        <div class="form-group">
+                            <label for="edit-event-start">Начало события</label>
+                            <input type="text" class="form-control datetimepicker" id="edit-event-start" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-event-end">Конец события</label>
+                            <input type="text" class="form-control datetimepicker" id="edit-event-end" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-event-title">Название события</label>
+                            <input type="text" class="form-control" id="edit-event-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-event-description">Описание события</label>
+                            <textarea class="form-control" id="edit-event-description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-event-repeat">Повторение события</label>
+                            <select class="form-control" id="edit-event-repeat">
+                                <option value="none">Не повторять</option>
+                                <option value="daily">Каждый день</option>
+                                <option value="weekly">Каждую неделю</option>
+                                <option value="monthly">Каждый месяц</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-event-color">Цвет события</label>
+                            <input type="color" class="form-control" id="edit-event-color">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button type="button" class="btn btn-danger" id="delete-event-btn">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/ru.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html>
