@@ -4,9 +4,7 @@ import sqlite3
 from hashlib import sha256
 from http import HTTPStatus
 from pathlib import Path
-
 from flask import jsonify, request, Response, session
-
 import sqlite_query
 from src.models import User
 
@@ -37,9 +35,7 @@ def registration(body):
 
     if is_exists:
         return (
-            jsonify(
-                {"message": "Аккаунт с такой электронной почтой уже существует."}
-            ),
+            jsonify({"message": "Аккаунт с такой электронной почтой уже существует."}),
             HTTPStatus.BAD_REQUEST,
         )
 
@@ -67,7 +63,7 @@ def registration(body):
     return jsonify(body), HTTPStatus.CREATED
 
 
-def Entrance():
+def entrance():
     data = request.get_json()
 
     hashed_email = Hashing(data["login_or_email"])
@@ -84,7 +80,7 @@ def Entrance():
 
     if not rows:
         return (
-            jsonify({"message": "Неверный адрес электронной почты или логин."}),
+            jsonify({"message": "Неверный адрес электронной почты"}),
             HTTPStatus.BAD_REQUEST,
         )
 

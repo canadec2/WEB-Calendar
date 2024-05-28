@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_EVENTS_PATH = BASE_DIR / "data.db"
 
 
-def create_event(body):
+def create_event():
     conn = sqlite3.connect(DATA_EVENTS_PATH)
     cur = conn.cursor()
     cur.execute(sqlite_query.create_table_events)
