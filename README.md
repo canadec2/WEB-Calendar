@@ -3,7 +3,7 @@
 ## Состав команды:
 1. **Божок Дмитрий** - <span style="color:red">*Frontend Developer & Team Lead*</span>
 2. **Крушинин Никита** - <span style="color:red">*Backend Developer*</span>
-3. **Горбан Артемий** - <span style="color:red">*Backend Developer*</span>
+3. **Горбан Артемий** - <span style="color:red">*Designer*</span>
 
 ## Технологический стек
 
