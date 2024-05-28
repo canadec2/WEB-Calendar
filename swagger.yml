@@ -56,7 +56,7 @@ paths:
   /login:
     post:
       summary: Вход пользователя
-      operationId: src.registration.Entrance
+      operationId: src.registration.entrance
       requestBody:
         required: true
         content:

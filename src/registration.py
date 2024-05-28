@@ -63,7 +63,7 @@ def registration(body):
     return jsonify(body), HTTPStatus.CREATED
 
 
-def Entrance():
+def entrance():
     data = request.get_json()
 
     hashed_email = Hashing(data["login_or_email"])
