@@ -1,19 +1,29 @@
-# WEB-Calendar
-# Состав команды
+# Arshanovskie
 
-*`Божок Дмитрий - тимлид`*
+## Состав команды:
+1. **Божок Дмитрий** - <span style="color:red">*Frontend Developer & Team Lead*</span>
+2. **Крушинин Никита** - <span style="color:red">*Backend Developer*</span>
+3. **Горбан Артемий** - <span style="color:red">*Backend Developer*</span>
 
-*`Горбан Артемий - frontend`*
+## Технологический стек
 
-*`Крушинин Никита - backend`*
-
-*`Федотов Платон - backend`*
-
-
-**Ссылка на Todoist:**
-https://app.todoist.com/app/project/project-6V6Fp6fJJGJFJghv
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white) ![Connexion](https://img.shields.io/badge/Connexion-4EA94B?style=flat-square&logo=swagger&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=flat-square&logo=sqlite&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 
 
+## Ссылки на ресурсы:
+
+## Запуск проекта 
+
+1. **Установка и активация зависимостей:** 
+    ```
+    pip install -r requirements.txt
+    venv/Scripts/activate
+    ```
+2. **Запуск сервера:** 
+    ```bash
+    python app.py
+    ```
+    
 
 # Описание проекта
 
@@ -55,7 +65,12 @@ https://app.todoist.com/app/project/project-6V6Fp6fJJGJFJghv
    - Возможность редактирования названия, описания и периодичности события.
 3. Настройка вида календаря:
    - Возможность выбора цвета для событий для улучшения визуального различия.
+   - 
 4. Интеграция с SQLite:
    - Хранение данных о событиях и пользователях в базе данных SQLite.
    - Обеспечение безопасности данных с использованием хеширования.
+  
 
+
+**Ссылка на Todoist:**
+https://app.todoist.com/app/project/project-6V6Fp6fJJGJFJghv
