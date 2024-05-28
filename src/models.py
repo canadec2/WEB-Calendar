@@ -43,7 +43,6 @@ class Event:
             "description": self.description,
             "year": self.year,
             "month": self.month,
-            "week": self.week,
             "day": self.day,
             "start_time": self.start_time,
             "end_time": self.end_time,

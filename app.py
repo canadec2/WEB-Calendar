@@ -1,24 +1,18 @@
-from flask import Flask, request, jsonify, redirect, render_template
-from http import HTTPStatus
-import connexion
 import os
-import sys
 import sqlite3
-import sqlite_query
+import sys
 from pathlib import Path
-from src.registration import registration, Entrance
+
+import connexion
+from flask import render_template
+
+import sqlite_query
 
 
 # секретный ключ
 def generate_secret_key():
     return os.urandom(24)
 
-def init_db():
-    with sqlite3.connect(DATA_USERS_PATH) as conn:
-        cur = conn.cursor()
-        cur.execute(sqlite_query.create_table_users)
-        cur.execute(sqlite_query.create_table_events)
-        conn.commit()
 
 
 BASE_DIR = Path(__file__).resolve().parent
